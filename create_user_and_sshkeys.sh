@@ -4,7 +4,6 @@
 #user
 USERNAMENEW=$1
 
-
 sudo useradd -m -d /home/${USERNAMENEW} -s /bin/bash ${USERNAMENEW}
 sudo mkdir -p /home/${USERNAMENEW}/.ssh/
 sudo touch /home/${USERNAMENEW}/.ssh/authorized_keys
@@ -16,10 +15,9 @@ sudo chown ${USERNAMENEW}:root .ssh
 
 ssh-keygen -t rsa -b 4096 -C "ssh key for user ${USERNAMENEW}" -f /home/${USERNAMENEW}/.ssh/id_rsa -N ""
 
-echo ${USERNAMENEW}
 HOSTT=$(hostname)
-USERNAMENEW=$1
 sed "s/ssh key for user ${USERNAMENEW}/${USERNAMENEW}@${HOSTT}/g" /home/${USERNAMENEW}/.ssh/id_rsa.pub  >> /home/${USERNAMENEW}/.ssh/id_rsa.pub${USERNAMENEW}
 cat /home/${USERNAMENEW}/.ssh/id_rsa.pub${USERNAMENEW}  >>  /home/${USERNAMENEW}/.ssh/authorized_keys
+
 
 echo "Now you can login remotly using this private key, /home/${USERNAMENEW}/.ssh/id_rsa"
